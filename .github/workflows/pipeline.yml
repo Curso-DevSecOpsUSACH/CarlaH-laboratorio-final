@@ -13,3 +13,30 @@ jobs:
     steps:
       - name: Configurar Workflow Inicial
         uses: actions/checkout@v3
+
+  SCA:
+    name: Análisis SCA con Dependency Check
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configurar Dependency Check
+        run: |
+          mkdir dependency-check
+          curl -L -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/latest/download/dependency-check-6.5.3-release.zip
+          unzip dependency-check.zip -d dependency-check
+          chmod +x dependency-check/bin/dependency-check.sh
+
+      - name: Ejecutar análisis SCA
+        run: |
+          dependency-check/bin/dependency-check.sh --project "ProjectName" \
+          --scan ./ --format ALL --out ./sca-report \
+          --failOnCVSS 4.0
+
+      - name: Subir reporte como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: Reporte-SCA
+          path: ./sca-report
