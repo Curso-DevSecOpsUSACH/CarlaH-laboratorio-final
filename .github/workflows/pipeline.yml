@@ -30,6 +30,7 @@ jobs:
         run: |
           unzip dependency-check.zip -d dependency-check
           ls -la dependency-check
+          ls -la dependency-check/bin
 
       - name: Ejecutar análisis SCA
         run: |
