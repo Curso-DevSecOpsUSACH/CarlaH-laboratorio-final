@@ -24,7 +24,7 @@ jobs:
 
       - name: Descargar Dependency Check
         run: |
-          curl -L --retry 3 --max-time 60 -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/latest/download/dependency-check-6.5.3-release.zip
+          curl -L --retry 3 --max-time 60 -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v11.1.1/dependency-check-11.1.1-release.zip
 
       - name: Descomprimir Dependency Check
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: Ejecutar análisis SCA
         run: |
-          dependency-check/bin/dependency-check.sh --project "ProjectName" \
+          dependency-check/bin/dependency-check.sh --project "CarlaH-laboratorio-final" \
           --scan ./ --format ALL --out ./sca-report \
           --failOnCVSS 4.0
 
