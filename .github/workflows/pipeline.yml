@@ -41,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Reporte-SCA
-          path: ./sca-report
+          path: ./sca-report/*
