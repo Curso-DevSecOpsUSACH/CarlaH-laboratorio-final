@@ -40,5 +40,5 @@ jobs:
       - name: Subir reporte como artefacto
         uses: actions/upload-artifact@v3
         with:
-          name: Reporte-SCA
+          name: sca-report
           path: ./sca-report/*
