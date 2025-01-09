@@ -38,7 +38,11 @@ jobs:
           --failOnCVSS 4.0
 
       - name: Subir reporte como artefacto
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: sca-report
           path: ./sca-report/*
+      
+      - name: Verificar los archivos generados
+        run: ls -R ./sca-report
