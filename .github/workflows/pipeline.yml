@@ -62,6 +62,13 @@ jobs:
     name: Análisis de Seguridad de Imagen Docker con Trivy
     runs-on: ubuntu-latest
     steps:
+      - name: Instalar Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget -qO- https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz | tar xzv
+          sudo mv trivy /usr/local/bin/
+
       - name: Configurar Trivy
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
