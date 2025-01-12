@@ -112,6 +112,9 @@ jobs:
     name: Despliegue de la Aplicación
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
       - name: Construir Imagen Docker
         run: |
           docker build --no-cache -t my-app:latest -f Dockerfile .
