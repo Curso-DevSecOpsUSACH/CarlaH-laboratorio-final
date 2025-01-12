@@ -56,11 +56,15 @@ jobs:
 
       - name: Construir Imagen Docker
         run: |
-          docker build -t my-app:latest .
+          docker build --no-cache -t my-app:latest .
 
       - name: Verificar Imagen Docker
         run: |
           docker images my-app:latest
+
+      - name: Check Alpine version
+        run: docker run --rm my-app:latest cat /etc/os-release
+        
 
       - name: Verificar si Docker está corriendo
         run: |
