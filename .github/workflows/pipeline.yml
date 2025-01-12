@@ -36,6 +36,7 @@ jobs:
           dependency-check/dependency-check/bin/dependency-check.sh --project "CarlaH-laboratorio-final" \
           --scan ./ --format ALL --out ./sca-report \
           --failOnCVSS 4.0
+          --nvd.api.key ${{ secrets.NVD_API_KEY }}
 
       - name: Subir reporte como artefacto
         if: always()
