@@ -8,7 +8,7 @@ on:
 
 jobs:
   Workflow_Inicial:
-    name: Clonar reposiyotio
+    name: Clonar repositorio
     runs-on: ubuntu-latest
     steps:
       - name: Clonar código fuente
@@ -131,7 +131,6 @@ jobs:
       - name: Verificar permisos de Docker
         run: |
           sudo docker info
-          sudo docker run hello-world
          
       - name: Configurar Docker Buildx
         run: |
