@@ -66,6 +66,11 @@ jobs:
         run: |
           docker info
 
+      - name: Dar permisos a Docker
+        run: |
+          sudo usermod -aG docker $USER
+          newgrp docker
+
   Image_Security:
     name: Análisis de Seguridad de Imagen Docker con Trivy
     runs-on: ubuntu-latest
