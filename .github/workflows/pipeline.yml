@@ -58,6 +58,14 @@ jobs:
         run: |
           docker build -t my-app:latest .
 
+      - name: Verificar Imagen Docker
+        run: |
+          docker images my-app:latest
+
+      - name: Verificar si Docker está corriendo
+        run: |
+          docker info
+
   Image_Security:
     name: Análisis de Seguridad de Imagen Docker con Trivy
     runs-on: ubuntu-latest
