@@ -108,10 +108,19 @@ jobs:
     name: Despliegue de la Aplicación
     runs-on: ubuntu-latest
     steps:
-      - name: Configurar Docker
+      - name: Subir Imagen a Docker Hub
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker tag my-app:latest ${DOCKER_USERNAME}/my-app:latest
+          docker push ${DOCKER_USERNAME}/my-app:latest
+
+      - name: Verificar login a Docker
+        run: docker info
+
+      - name: Extraer imagen desde Docker Hub
+        run: |
+          docker pull ${DOCKER_USERNAME}/my-app:latest
 
       - name: Desplegar aplicación
         run: |
-          docker run -d --name my-app -p 8080:8080 my-app:latest
+          docker run -d --name my-app -p 8080:8080 ${DOCKER_USERNAME}/my-app:latest
