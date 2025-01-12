@@ -89,7 +89,13 @@ jobs:
           mkdir -p ./trivy-report
           /usr/local/bin/trivy image --scanners vuln --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --no-progress --format json --output ./trivy-report/trivy-report.txt my-app:latest
 
+      - name: Verificar los archivos generados
+        run: |
+          echo "Archivos en ./trivy-report:"
+          ls -la ./trivy-report
+
       - name: Subir reporte como artefacto
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: trivy-report
