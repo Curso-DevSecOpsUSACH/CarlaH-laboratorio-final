@@ -8,10 +8,10 @@ on:
 
 jobs:
   Workflow_Inicial:
-    name: Configurar Workflow Inicial
+    name: Clonar Repositorio
     runs-on: ubuntu-latest
     steps:
-      - name: Configurar Workflow Inicial
+      - name: Clonar código fuente
         uses: actions/checkout@v3
 
   SCA:
@@ -108,15 +108,7 @@ jobs:
           name: trivy-report
           path: ./trivy-report/*
 
-  deploy:
-    name: Despliegue de la Aplicación
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verificar Docker Username
-        run: |
-          echo ${{ secrets.DOCKER_USERNAME }}
-
-      - name: Login a Docker Hub
+      - name: Login a Docker Hub para el despliegue
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker info
@@ -132,9 +124,9 @@ jobs:
         
       - name: Etiquetar imagen antes de empujar
         run: |
-          docker tag my-app:latest carlahuichaman/my-app:latest
+          docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/my-app:latest
   
-      - name: Empujar imagen a Docker Hub
+      - name: Desplegar imagen a Docker Hub
         run: |
-          docker push carlahuichaman/my-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
 
