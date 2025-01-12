@@ -65,7 +65,6 @@ jobs:
       - name: Instalar Trivy
         run: |
           wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo bash
-          sudo mv trivy /usr/local/bin/trivy
 
       - name: Verificar instalación de Trivy
         run: |
