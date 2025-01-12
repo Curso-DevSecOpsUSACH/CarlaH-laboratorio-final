@@ -116,20 +116,25 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_USERNAME }}
 
-      - name: Subir Imagen a Docker Hub
+      - name: Verificar etiqueta de la imagen
         run: |
-          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker inspect my-app:latest
+
+      - name: Login a Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker info
-          docker images
-          docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-          docker images
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-        
-      - name: Extraer imagen desde Docker Hub
+
+      - name: Verificar permisos de Docker
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-        
-      - name: Desplegar aplicación
+          sudo docker info
+          sudo docker run hello-world
+         
+      - name: Configurar Docker Buildx
         run: |
-          docker run -d --name my-app -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          docker buildx create --use
         
+      - name: Empujar imagen a Docker Hub
+        run: |
+         docker buildx build --push -t ${{ secrets.DOCKER_USERNAME }}/my-app:latest .
+
