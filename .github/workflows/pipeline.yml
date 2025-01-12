@@ -111,6 +111,7 @@ jobs:
       - name: Subir Imagen a Docker Hub
         run: |
           docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker images  # Verificar imágenes disponibles
           docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/my-app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
         
