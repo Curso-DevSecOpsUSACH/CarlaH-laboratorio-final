@@ -64,7 +64,8 @@ jobs:
     steps:
       - name: Instalar Trivy
         run: |
-          wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo bash
+          wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | bash
+          sudo mv ./bin/trivy /usr/local/bin/trivy
 
       - name: Verificar instalación de Trivy
         run: |
@@ -73,7 +74,7 @@ jobs:
       - name: Ejecutar análisis de seguridad
         run: |
           mkdir -p ./trivy-report
-          trivy image --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --no-progress --format table --output ./trivy-report/trivy-report.txt my-app:latest
+          /usr/local/bin/trivy image --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --no-progress --format table --output ./trivy-report/trivy-report.txt my-app:latest
 
       - name: Subir reporte como artefacto
         uses: actions/upload-artifact@v3
