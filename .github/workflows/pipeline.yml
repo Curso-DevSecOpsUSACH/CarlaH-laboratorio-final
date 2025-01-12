@@ -116,10 +116,6 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_USERNAME }}
 
-      - name: Verificar etiqueta de la imagen
-        run: |
-          docker inspect my-app:latest
-
       - name: Login a Docker Hub
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -134,7 +130,11 @@ jobs:
         run: |
           docker buildx create --use
         
+      - name: Etiquetar imagen antes de empujar
+        run: |
+          docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+  
       - name: Empujar imagen a Docker Hub
         run: |
-         docker buildx build --push -t ${{ secrets.DOCKER_USERNAME }}/my-app:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
 
