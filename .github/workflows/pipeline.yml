@@ -47,8 +47,8 @@ jobs:
       - name: Verificar los archivos generados
         run: ls -R ./sca-report
 
-  Build_DockerImage:
-    name: Construcción de la imagen Docker
+  Image_Security:
+    name: Análisis de Seguridad de Imagen Docker con Trivy
     runs-on: ubuntu-latest
     steps:
       - name: Clonar código fuente
@@ -71,10 +71,6 @@ jobs:
           sudo usermod -aG docker $USER
           newgrp docker
 
-  Image_Security:
-    name: Análisis de Seguridad de Imagen Docker con Trivy
-    runs-on: ubuntu-latest
-    steps:
       - name: Instalar Trivy
         run: |
           wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | bash
