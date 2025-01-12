@@ -132,9 +132,9 @@ jobs:
         
       - name: Etiquetar imagen antes de empujar
         run: |
-          docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/docker.io/library/my-app:latest
+          docker tag my-app:latest carlahuichaman/my-app:latest
   
       - name: Empujar imagen a Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          docker push carlahuichaman/my-app:latest
 
