@@ -56,7 +56,7 @@ jobs:
 
       - name: Construir Imagen Docker
         run: |
-          docker build --no-cache -t my-app:latest .
+          docker build --no-cache -t my-app:latest -f path/to/Dockerfile .
 
       - name: Verificar Imagen Docker
         run: |
