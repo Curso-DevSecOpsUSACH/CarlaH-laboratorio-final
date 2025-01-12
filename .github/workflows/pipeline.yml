@@ -64,9 +64,12 @@ jobs:
     steps:
       - name: Instalar Trivy
         run: |
-          echo "export PATH=\$PATH:/usr/local/bin" >> $GITHUB_ENV
           wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo bash
+          sudo mv trivy /usr/local/bin/trivy
 
+      - name: Verificar instalación de Trivy
+        run: |
+          /usr/local/bin/trivy --version
 
       - name: Ejecutar análisis de seguridad
         run: |
