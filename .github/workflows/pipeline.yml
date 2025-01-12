@@ -80,13 +80,10 @@ jobs:
         run: |
           /usr/local/bin/trivy --version
 
-      - name: Verificar imagen Docker
-        run: docker images
-
       - name: Ejecutar análisis de seguridad
         run: |
           mkdir -p ./trivy-report
-          /usr/local/bin/trivy image --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --no-progress --format table --skip-files --output ./trivy-report/trivy-report.txt my-app:latest
+          /usr/local/bin/trivy image --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --no-progress --format table --output ./trivy-report/trivy-report.txt my-app:latest
 
       - name: Subir reporte como artefacto
         uses: actions/upload-artifact@v3
